@@ -72,6 +72,9 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 pt-8 mt-8 text-gray-500 text-sm flex flex-col md:flex-row justify-between items-center">
           <p>© {currentYear} 키즈벅스(KidsBugs). 모든 권리 보유.</p>
+          <p className="mt-2 md:mt-0">대표: 강복순 | 사업자 등록번호: 123-45-67890</p>
+          <p className="mt-2 md:mt-0">주소: 서울특별시 강남구 테헤란로 123 | 전화: 010-9789-7457</p>
+
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#privacy" className="hover:text-white transition-colors">개인정보처리방침</a>
             <a href="#terms" className="hover:text-white transition-colors">이용약관</a>
