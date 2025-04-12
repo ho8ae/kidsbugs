@@ -1,0 +1,72 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  kakaoId       String   @unique
+  nickname      String?
+  profileImage  String?
+  isSubscribed  Boolean  @default(true)
+  totalAnswered Int      @default(0)
+  correctAnswers Int     @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  responses    Response[]
+  donations    Donation[]
+}
+
+model Question {
+  id          Int      @id @default(autoincrement())
+  text        String
+  options     Json     // ["옵션1", "옵션2", "옵션3", "옵션4"]
+  correctOption Int    // 올바른 옵션의 인덱스 (0 기반)
+  explanation String
+  category    String
+  difficulty  String   @default("medium")
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  dailyQuestions DailyQuestion[]
+}
+
+model DailyQuestion {
+  id         Int      @id @default(autoincrement())
+  questionId Int
+  question   Question @relation(fields: [questionId], references: [id])
+  sentDate   DateTime @default(now())
+  
+  responses  Response[]
+}
+
+model Response {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  user            User     @relation(fields: [userId], references: [id])
+  dailyQuestionId Int
+  dailyQuestion   DailyQuestion @relation(fields: [dailyQuestionId], references: [id])
+  answer          Int      // 사용자가 선택한 옵션 인덱스
+  isCorrect       Boolean
+  respondedAt     DateTime @default(now())
+}
+
+model Donation {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  user            User     @relation(fields: [userId], references: [id])
+  amount          Int      @default(3000)
+  tid             String?  // 카카오페이 거래 ID
+  orderCode       String   @unique // 주문 고유 코드
+  status          String   @default("ready") // ready, approved, canceled, failed
+  message         String?
+  approvedAt      DateTime?
+  createdAt       DateTime @default(now())
+}
