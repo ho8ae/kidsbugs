@@ -6,54 +6,16 @@ services:
     container_name: nginx-kidsbugs
     restart: always
     ports:
-      - "8002:80"
-      - "8002:443"
+      - "8080:80"
+      - "8443:443"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    depends_on:
-      - landing-page
-      - api-server
-    networks:
-      - app-network
-
-  landing-page:
-    build:
-      context: ./front
-      dockerfile: Dockerfile
-    container_name: landing-page-kidsbugs
-    restart: always
-    networks:
-      - app-network
-
-  api-server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    container_name: api-server-kidsbugs
-    restart: always
-    environment:
-      - NODE_ENV=production
-      - DATABASE_URL=${DATABASE_URL}
-      - PORT=3000
-      - KAKAO_ADMIN_KEY=${KAKAO_ADMIN_KEY}
-      - KAKAO_PAY_CID=${KAKAO_PAY_CID}
-      - SERVICE_URL=${SERVICE_URL}
-      - ADMIN_API_KEY=${ADMIN_API_KEY}
-    networks:
-      - app-network
-
+  
   certbot:
     image: certbot/certbot
     container_name: certbot-kidsbugs
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    networks:
-      - app-network
-
-networks:
-  app-network:
-    driver: bridge
-    name: kidsbugs-network
