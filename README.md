@@ -1,5 +1,4 @@
-# csmorning
-# 매일 아침 8시 CS 질문을 받아보세요
+# kidsbugs
 
-주소 : [csmorning](https://csmorning.co.kr)
+주소 : [키즈벅스](https://kidsbugs.co.kr)
 
