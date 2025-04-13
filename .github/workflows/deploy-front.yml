@@ -30,4 +30,5 @@ jobs:
             docker-compose down landing-page
             docker-compose build landing-page
             docker-compose up -d landing-page
+            docker restart nginx-proxy
           EOF
