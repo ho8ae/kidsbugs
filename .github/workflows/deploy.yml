@@ -1,9 +1,8 @@
-name: Deploy CS Morning
+name: Deploy Kidsbugs
 
 on:
   push:
     branches: [ main ]
-    # paths 필터 제거 - 모든 변경에 반응
 
 jobs:
   deploy:
