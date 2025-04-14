@@ -28,6 +28,7 @@ jobs:
             docker-compose down
             docker-compose build
             docker-compose up -d
+            sleep 7
             cd ~/nginx-proxy
             docker-compose restart
           EOF
