@@ -60,7 +60,10 @@ const HabitatSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            {/* 여기에 곤충 놀이터/사육장 이미지가 들어갈 예정 */}
+            <img
+              src="/logo/KIDSBUGSlogo.png"
+              alt="곤충 하우스"
+              className="w-full h-full object-cover"/>
           </motion.div>
         </div>
       </div>
